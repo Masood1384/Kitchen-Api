@@ -214,8 +214,6 @@ namespace Kitchen.Web.Controllers
         [HttpPost("emailsend")]
         public async Task<IActionResult> emailsend(EmailDTO email)
         {
-            var body = "";
-            await _emailSender.SendEmail(email.Email, "Masood" , body);
             return Ok("Done");
             
         }
