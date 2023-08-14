@@ -189,16 +189,16 @@ namespace Kitchen.Web.Controllers
             {
                 return BadRequest("پسورد وارد شده اشتباه است");
             }
-
-            var body = ""; //"<div style=\"text-align: center; padding: 18px;direction: rtl; width: 95%;background-color: aqua;height: auto;left: 0px;border-radius: 15px;\">\r\n    <h1 style=\"margin-top: 20px;text-align: center;\">ممنون از ثبت نام شما</h1>\r\n    <h3 style=\"color: red;\">لطفا حساب خود را تایید کنید</h3>\r\n    <a id=\"btn\" onclick=\"Login()\"  title=\"MWJPmcvHDrWi//Xm2NYbEvkxHWoMQQcTsUMdDyjImtmMBywkfwq34CUtpvB8xFJ9ln+bxz4Y45lPJIxyMW3QyA==\" type=\"button\" style=\"text-align: center;text-decoration: none;font-size: 30px;font-weight: bold;padding: 15px;background-color: blue;color: white;border-radius: 15px;\" href=\"http://masood-tmp.ir\">تایید حساب</a>\r\n</div>\r\n<script>const Login = () => {let Login = {};Login.token = document.getElementById(\"btn\").title;const ApiUrl = \"https://localhost:7148/Account/EmailConiform\";fetch(ApiUrl, {method:\"POST\",headers:{\"Content-Type\":\"application/json\"},body:JSON.stringify(Login)}).then(response => { return response;}).then(re => {if(re.status == 200){console.info(\"Coniform Succsed\")}else{alert(\"Coniform Faild\")}})}\r\n</script>";
-            await _emailSender.SendEmail(user.Email, "Masood", body);
-
+            var coniformlink = Url.Action(nameof(EmailConiform), "Account", new {Token = list.RefreshToken}, Request.Scheme);
+            var body = $"<div style=\"text-align: center; padding: 18px;direction: rtl; width: 95%;background-color: aqua;height: auto;left: 0px;border-radius: 15px;\">\r\n    <h1 style=\"margin-top: 20px;text-align: center;\">ممنون از ثبت نام شما</h1>\r\n    <h3 style=\"color: red;\">لطفا حساب خود را تایید کنید</h3>\r\n    <a id=\"btn\" type=\"button\" style=\"text-align: center;text-decoration: none;font-size: 30px;font-weight: bold;padding: 15px;background-color: blue;color: white;border-radius: 15px;\" href=\"{coniformlink}\" >تایید حساب</a>\r\n    </div>";
+            await _emailSender.SendEmail(user.Email, "تاییذ حساب", body);
+            
             return Ok(list.RefreshToken);
         }
-        [HttpPost("EmailConiform")]
-        public async Task<IActionResult> EmailConiform(TokenDTO Token)
+        [HttpGet("EmailConiform")]
+        public async Task<IActionResult> EmailConiform([FromQuery]string Token)
         {
-             var lis =  await _userRepository.GetbyUseToken(Token.Token);
+             var lis =  await _userRepository.GetbyUseToken(Token);
             if (lis == null)
             {
                 return NotFound();
@@ -207,7 +207,7 @@ namespace Kitchen.Web.Controllers
             {
                 lis.ConiformEmail = true;
                 await _userRepository.Update(lis);
-                return Ok("حساب شما تایید شد");
+                return Ok("<div style=\"background-color: aqua;width: 100%;height: 100px;text-align: center;padding: 14px 0px;\">\r\n    <h1 style=\"color: rgb(42, 63, 146);\">حساب شما با موفقیت تایید شد هم اکنون میتوانید وارد حساب کاربری خود شوید</h1>\r\n</div>");
 
             }
         }

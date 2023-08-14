@@ -58,11 +58,11 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
 
 
 var app = builder.Build();
-app.UseCors(x => x
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .SetIsOriginAllowed(origin => true) // allow any origin
-                    .AllowCredentials());
+//app.UseCors(x => x
+//                    .AllowAnyMethod()
+//                    .AllowAnyHeader()
+//                    .SetIsOriginAllowed(origin => true) // allow any origin
+//                    .AllowCredentials());
 
 app.UseStaticFiles();
 app.ConfigureRequestPipeline();
