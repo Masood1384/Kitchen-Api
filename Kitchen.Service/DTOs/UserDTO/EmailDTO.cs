@@ -11,6 +11,7 @@ namespace Kitchen.Service.DTOs.UserDTO
     public class EmailDTO:BaseDTO
     {
         [EmailAddress]
-        public string Email { get; set; }
+        public string Subject { get; set; }
+        public string message { get; set; }
     }
 }
