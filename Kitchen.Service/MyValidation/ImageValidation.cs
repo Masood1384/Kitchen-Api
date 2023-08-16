@@ -38,7 +38,6 @@ namespace Kitchen.Service.MyValidation
 
             var contentType = image.ContentType;
 
-
             var fileExtension = Path.GetExtension(image.FileName);
 
             if (!string.IsNullOrEmpty(fileExtension))
