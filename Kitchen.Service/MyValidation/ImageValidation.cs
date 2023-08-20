@@ -47,8 +47,6 @@ namespace Kitchen.Service.MyValidation
             {
                 return new ValidationResult(ErrorMessage);
             }
-
-            
             return ValidationResult.Success;
         }
     }

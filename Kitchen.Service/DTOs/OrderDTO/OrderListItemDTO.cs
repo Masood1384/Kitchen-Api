@@ -1,9 +1,9 @@
-using Kitchen.Core.Commons;
-using System.ComponentModel.DataAnnotations.Schema;
+using Kitchen.Core.Domain.Order;
+using Kitchen.Service.DTOs.CommonsDTO;
 
-namespace Kitchen.Core.Domain.Order
+namespace Kitchen.Service.DTOs.OrderDTO
 {
-    public class Order : BaseEntity
+    public class OrderListItemDTO:BaseItemDTO
     {
         public int OrderTotal { get; set; }
         public string Adress { get; set; }
@@ -15,12 +15,7 @@ namespace Kitchen.Core.Domain.Order
             set => OrderStatusId = (int)value;
         }
         public bool Deleted { get; set; }
-        public int UserId { get; set; }
-
-
-        //Navigation Properties
-
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
-        public virtual  Kitchen.Core.Domain.User.User User { get; set; }
+        public string UserName { get; set; }
+        public string UserFamily { get; set; }
     }
 }
