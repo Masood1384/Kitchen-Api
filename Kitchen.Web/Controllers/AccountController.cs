@@ -5,6 +5,7 @@ using Kitchen.Service.Catalog;
 using Kitchen.Service.Catalog.UserService;
 using Kitchen.Service.DTOs.UserDTO;
 using Kitchen.Service.Tools.Emailsender;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
