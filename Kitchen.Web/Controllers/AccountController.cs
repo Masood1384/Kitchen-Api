@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Protocol;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -105,8 +106,22 @@ namespace Kitchen.Web.Controllers
             string Token =await _userService.Login(list);
             var refreshtoken = await GnerateRefreshToken();
             await SetRefreshToken(refreshtoken, user);
-            
-            return Ok(Token);
+
+            var cookieOption = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = refreshtoken.Expires
+			};
+			Response.Cookies.Append("User-Id", list.ID.ToString(), cookieOption);
+			Response.Cookies.Append("User-Name", list.Name, cookieOption);
+			Response.Cookies.Append("User-Family", list.Family, cookieOption);
+			Response.Cookies.Append("User-Email", list.Email, cookieOption);
+			Response.Cookies.Append("User-UserName", list.UserName, cookieOption);
+			Response.Cookies.Append("User-Role", list.Role, cookieOption);
+			Response.Cookies.Append("User-CreateOn", list.CreateON.ToString(), cookieOption);
+			Response.Cookies.Append("Token", Token, cookieOption);
+
+			return Ok(Token);
 
         }
         [HttpPost("RefreshToken"), Authorize]

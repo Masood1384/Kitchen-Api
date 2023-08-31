@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kitchen.Data.Migrations
 {
     [DbContext(typeof(SqlServerApplicationContext))]
-    [Migration("20230809140453_InitialCatalog")]
+    [Migration("20230829182647_InitialCatalog")]
     partial class InitialCatalog
     {
         /// <inheritdoc />
@@ -164,9 +164,6 @@ namespace Kitchen.Data.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<int>("OrderStatusId")
                         .HasColumnType("int");
 
@@ -198,16 +195,16 @@ namespace Kitchen.Data.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreateON")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("FoodID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UnitPrice")
+                    b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateON")
